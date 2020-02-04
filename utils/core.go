@@ -48,13 +48,9 @@ func Core() {
 	router := mux.NewRouter().StrictSlash(false)
 	// use logging middleware
 	router.Use(loggingMiddleware)
-
+	// routers
 	router.HandleFunc("/health", healthzHandler).Methods("GET")
-	router.Handle("/metrics", promhttp.HandlerFor(
-		//prometheus.DefaultGatherer,
-		reg,
-		promhttp.HandlerOpts{},
-	)).Methods("GET")
+	router.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{})).Methods("GET")
 	router.NotFoundHandler = router.NewRoute().HandlerFunc(http.NotFound).GetHandler()
 
 	log.Println(fmt.Sprintf("Server listen on: %s", listen))
