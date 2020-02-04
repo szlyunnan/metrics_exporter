@@ -32,7 +32,7 @@ func Core() {
 	dbfullpath := fmt.Sprintf("%s/%s", conf.Metrics.DbPath, conf.Metrics.DbName)
 	mdb := model.NewMetricsDB("sqlite3", dbfullpath)
 	t := time.Now()
-	sqlStr := fmt.Sprintf("select si_pkg, si_code, si_msg, si_build from `aax_sign-%d`", t.Day()-3)
+	sqlStr := fmt.Sprintf("select si_pkg, si_code, si_msg, si_build from `aax_sign-%d`", t.Day())
 	data, err := mdb.DBQuery(sqlStr)
 	if err != nil {
 		panic(err)
