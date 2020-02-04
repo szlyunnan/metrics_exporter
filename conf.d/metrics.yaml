@@ -1,5 +1,5 @@
 metices:
-  db_path: "/Users/sam/data/storage"
+  db_path: "/Users/sam/data"
   db_name: "si_prometheus.db"
   tb_name: "si_sign"
   si_name: "si-sign"

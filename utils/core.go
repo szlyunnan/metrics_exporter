@@ -47,12 +47,35 @@ func Core() {
 	// use logging middleware
 	router.Use(loggingMiddleware)
 	// routers
+	router.HandleFunc("/", indexHandler).Methods("GET")
 	router.HandleFunc("/health", healthzHandler).Methods("GET")
 	router.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{})).Methods("GET")
 	router.NotFoundHandler = router.NewRoute().HandlerFunc(http.NotFound).GetHandler()
 
 	log.Println(fmt.Sprintf("Server listen on: %s", listen))
 	log.Fatal(http.ListenAndServe(listen, router))
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	res := map[string]map[string]string{
+		"status": map[string]string{
+			"message": "success",
+			"code":    strconv.Itoa(http.StatusOK),
+		},
+		"detail": map[string]string{
+			"url":  r.RequestURI,
+			"help": "index dashboard",
+		},
+		"medata": map[string]string{
+			"msg": "http server url list",
+			"1":   "/",
+			"2":   "health",
+			"3":   "metrics",
+		},
+	}
+	response, _ := json.Marshal(res)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(response)
 }
 
 func healthzHandler(w http.ResponseWriter, r *http.Request) {
