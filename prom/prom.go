@@ -11,7 +11,6 @@ type MetricsCollector struct {
 	signMetricDesc *prometheus.Desc
 }
 
-//{aax_code="430",aax_name="aax-sign",aax_pkg="com.aax.exchange.1.3.0.96e56842.ipa",status="Response verify OK"}
 func NewMetricsCollector(data []model.QueryData) *MetricsCollector {
 	return &MetricsCollector{
 		data: data,
