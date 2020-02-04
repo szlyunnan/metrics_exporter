@@ -1,20 +1,21 @@
 package model
 
 import (
-	"database/sql"
+	"github.com/jmoiron/sqlx"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var querydata []QueryData
 
-func New(dbtype, dbpath string) *MetricsDB {
+func NewMetricsDB(dbtype, dbpath string) *MetricsDB {
 	return &MetricsDB{
 		DbType: dbtype,
 		DbPath: dbpath,
 	}
 }
 
-func (mdb *MetricsDB) DBEngine() (*sql.DB, error) {
-	db, err := sql.Open(mdb.DbType, mdb.DbPath)
+func (mdb *MetricsDB) DBEngine() (*sqlx.DB, error) {
+	db, err := sqlx.Open(mdb.DbType, mdb.DbPath)
 	if err != nil {
 		return nil, err
 	}
@@ -28,18 +29,17 @@ func (mdb *MetricsDB) DBQuery(sql string) ([]QueryData, error) {
 	}
 	defer dbengine.Close()
 
-	rows, err := dbengine.Query(sql)
+	rows, err := dbengine.Queryx(sql)
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
 		qd := &QueryData{}
-		if err := rows.Scan(qd.SiPkg, qd.SiCode, qd.SiMsq); err != nil {
+		if err := rows.StructScan(qd); err != nil {
 			return nil, err
 		}
 		querydata = append(querydata, []QueryData{0: *qd}...)
-
 	}
 	return querydata, nil
 }

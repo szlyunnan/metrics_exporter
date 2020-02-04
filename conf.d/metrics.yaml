@@ -1,6 +1,5 @@
----
-- metices:
-    db_path: "/Users/sam/data/devOps/opsAdmin/atomintl-monitoring"
-    db_name: "aax_prometheus.db"
-    tb_name: "aax_sign"
-    si_name: "aax-sign"
+metices:
+  db_path: "/Users/sam/data/devOps/opsAdmin/atomintl-monitoring"
+  db_name: "aax_prometheus.db"
+  tb_name: "aax_sign"
+  si_name: "aax-sign"

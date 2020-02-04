@@ -19,10 +19,10 @@ type Configure struct {
 func New() *Configure {
 	// 本地开发环境配置
 	// tb 的名称是按照tb-prefix-day 构成的
-	// tb 名称栗子: metrics_tb-28
+	// tb 名称栗子: metrics_tb-28	·	···
 	timeObj := time.Now()
 	return &Configure{
-		Metrics:Config{
+		Metrics: Config{
 			DbPath: "/Users/sam/data/storage",
 			DbName: "metrics_prometheus.db",
 			TbName: fmt.Sprintf("%s-%d", "metrics_tb", timeObj.Day()),

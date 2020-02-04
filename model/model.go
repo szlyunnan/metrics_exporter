@@ -6,7 +6,8 @@ type MetricsDB struct {
 }
 
 type QueryData struct {
-	SiPkg  string
-	SiMsq  string
-	SiCode int
+	SiPkg   string `db:"si_pkg"`
+	SiMsg   string `db:"si_msg"`
+	SiCode  int64  `db:"si_code"`
+	SiBuild int64  `db:"si_build"`
 }
