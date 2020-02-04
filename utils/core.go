@@ -22,8 +22,8 @@ var (
 	conf   config.Configure
 	listen string
 	host   string
-	port   int
 	path   string
+	port   int
 	help   bool
 )
 
