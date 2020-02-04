@@ -32,7 +32,7 @@ func Core() {
 	dbfullpath := fmt.Sprintf("%s/%s", conf.Metrics.DbPath, conf.Metrics.DbName)
 	mdb := model.NewMetricsDB("sqlite3", dbfullpath)
 	t := time.Now()
-	sqlStr := fmt.Sprintf("select si_pkg, si_code, si_msg, si_build from `aax_sign-%d`", t.Day())
+	sqlStr := fmt.Sprintf("select si_pkg, si_code, si_msg, si_build from `aax_sign-%d`", t.Day()-3)
 	data, err := mdb.DBQuery(sqlStr)
 	if err != nil {
 		panic(err)
@@ -69,8 +69,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		"medata": map[string]string{
 			"msg": "http server url list",
 			"1":   "/",
-			"2":   "health",
-			"3":   "metrics",
+			"2":   "/health",
+			"3":   "/metrics",
 		},
 	}
 	response, _ := json.Marshal(res)
