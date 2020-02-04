@@ -16,10 +16,6 @@ func NewMetricsCollector(data []model.QueryData) *MetricsCollector {
 		data: data,
 		signMetricDesc: prometheus.NewDesc("sign_Metrics",
 			"Shows whether sign Metrics",
-			// aax_code si_build
-			// aax_name si_name
-			// aax_pkg si_pkg
-			// status si_message
 			[]string{"aax_code", "aax_name", "aax_pkg", "status"},
 			nil,
 		),
