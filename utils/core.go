@@ -30,8 +30,6 @@ var (
 func Core() {
 
 	dbfullpath := fmt.Sprintf("%s/%s", conf.Metrics.DbPath, conf.Metrics.DbName)
-
-	// get data from sqlite
 	mdb := model.NewMetricsDB("sqlite3", dbfullpath)
 	t := time.Now()
 	sqlStr := fmt.Sprintf("select si_pkg, si_code, si_msg, si_build from `aax_sign-%d`", t.Day())
@@ -84,6 +82,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 func init() {
+	// flag
 	flag.BoolVar(&help, "h", false, "help")
 	flag.StringVar(&host, "host", "127.0.0.1", "The hostname or IP on which the REST server will listen")
 	flag.IntVar(&port, "port", 8090, "The port on which the REST server will listen")
@@ -96,6 +95,7 @@ func init() {
 		os.Exit(0)
 	}
 
+	// config
 	vper := viper.New()
 	vper.SetConfigName("metrics")
 	vper.AddConfigPath(path)
